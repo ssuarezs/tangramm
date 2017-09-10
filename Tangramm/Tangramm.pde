@@ -16,9 +16,9 @@ color Q2= color(80,90,170);
     int coorY = mouseY;
     
 //FIguras para armar, completar figuras
-  int TipoDeFig=2;
+  int TipoDeFig=1;
   void Dibujar_Fig(int x){
-      if(x ==1){fill(10); rect(500,200,290,290);}
+      if(x ==1){fill(10); rect(400,200,283,283);}
       if(x ==2){
       pushMatrix();
     translate(500, 300); rotate(PI);
@@ -50,6 +50,38 @@ color Q2= color(80,90,170);
       quad(0,0,141,0,212,71,71,71);
       popMatrix();
       }
+      
+      if(x ==3){
+      pushMatrix();
+    translate(500, 300); rotate(PI/2);
+      fill(0);
+      triangle(0,0,200,0,0,200);
+      popMatrix();
+    pushMatrix();
+    translate(500, 500); rotate(-PI/2);
+      triangle(0,0,200,0,0,200);
+      popMatrix();
+    pushMatrix();
+    translate(397, 402); rotate(PI/4);
+      triangle(0,0,141,0,0,141);
+      popMatrix();
+    pushMatrix();
+    translate(324, 471); rotate(-3*PI/4);
+      triangle(0,0,100,0,0,100);
+      popMatrix();
+    pushMatrix();
+    translate(702, 354); rotate(-PI/4);
+      triangle(0,0,100,0,0,100);
+      popMatrix();
+    pushMatrix();
+    translate(631, 280); rotate(-PI/4);
+      rect(0,0,100,100);
+      popMatrix();
+    pushMatrix();
+    translate(700, 495);rotate(PI/2); scale(-1,Trap [4]);
+      quad(0,0,141,0,212,71,71,71);
+      popMatrix();
+      }
   }
  
     
@@ -76,11 +108,7 @@ float scaled(float x){
   return x;
 }
 
-      
-void setup(){
-  size(1200,680);
-  background(W);
-  strokeWeight(4);
+void posicion_inicial(){
   Tria_1 [0]= 10; Tria_1 [1]= 10; Tria_1 [2]= 0;
   Tria_2 [0]= 220; Tria_2 [1]= 210; Tria_2 [2]= PI;
   Tria_3 [0]= 10; Tria_3 [1]= 220; Tria_3 [2]= 0;
@@ -88,6 +116,14 @@ void setup(){
   Tria_5 [0]= 87; Tria_5 [1]= 292; Tria_5 [2]= -PI/4;
   Cuad [0]= 10; Cuad [1]= 385; Cuad [2]= 0;
   Trap [0]= 10; Trap [1]= 500; Trap [2]= 0; Trap [3]= 1; Trap [4]= 1;
+}
+
+      
+void setup(){
+  size(1200,680);
+  background(W);
+  strokeWeight(4);
+  posicion_inicial();
 }     
     
     
@@ -161,15 +197,59 @@ void draw(){
     text("   Utilize las flechas RIGTH o LEFT, para cambiar ", 900, 195); 
     text("   el sentido del trapecio, cuando este seleccionado.", 900, 210); 
     
-    if( Tria_1 [0]>490 && Tria_1 [0]<510  && 
-        Tria_2 [0]>490 && Tria_2 [0]<510  &&  
-        Tria_3 [0]>590 && Tria_3 [0]<610  && 
-        Tria_4 [0]>490 && Tria_4 [0]<514  && 
-        Tria_5 [0]>490 && Tria_5 [0]<514  && 
-        Cuad [0]>590 && Cuad [0]<750  && 
-        Trap [0]>490 && Trap [0]<514 && Trap [3]==-1  ){
-          fill(0);
-          rect(0,0,30,30);
+    
+    //elegir figura 
+    textSize(20); text("Eligir figura a completar", 920, 280); textSize(18);
+    fill(W);   if(TipoDeFig==1){stroke(150);} rect(930,300,200,60);stroke(0); 
+               if(TipoDeFig==2){stroke(150);} rect(930,380,200,60);stroke(0);    
+               if(TipoDeFig==3){stroke(150);} rect(930,460,200,60);stroke(0); 
+    fill(5);
+    text("Cuadrado (Facil)", 940, 330);
+    text("Pez (Intermedio)", 940, 410);
+    text("Pato (Intermedio)", 940, 490);
+    
+    if( Tria_1 [0]>530 && Tria_1 [0]<550  && Tria_1 [1]>330 && Tria_1 [1]<350  && 
+        Tria_2 [0]>530 && Tria_2 [0]<550  && Tria_2 [1]>330 && Tria_2 [1]<350  && 
+        ((Tria_3 [0]>390 && Tria_3 [0]<410)||(Tria_3 [0]>673 && Tria_3 [0]<693))  && 
+        ((Tria_3 [1]>190 && Tria_3 [1]<210)||(Tria_3 [1]>473 && Tria_3 [1]<493))  &&
+        Tria_4 [0]>465 && Tria_4 [0]<617  && Tria_4 [1]>265 && Tria_4 [1]<417 &&
+        Tria_5 [0]>465 && Tria_5 [0]<617  && Tria_5 [1]>265 && Tria_5 [1]<417 &&
+        Cuad [0]>390 && Cuad [0]<693  && Cuad [1]>190 && Cuad [1]<493  &&
+        ((Trap [0]>390 && Trap [0]<410)||(Trap [0]>673 && Trap [0]<693))  && 
+        ((Trap [1]>190 && Trap [1]<210)||(Trap [1]>473 && Trap [1]<493))  &&
+        seleccionado == 0 && TipoDeFig == 1){
+          fill(140,100,80);
+          rect(370,550,345,70,8);
+          fill(200);
+          text("Has completado la figura 'Cuadrado'", 380, 585);
+    }
+    
+    if( Tria_1 [0]>490 && Tria_1 [0]<510  && Tria_1 [1]>290 && Tria_1 [1]<310  && 
+        Tria_2 [0]>490 && Tria_2 [0]<510  && Tria_2 [1]>290 && Tria_2 [1]<310  && 
+        Tria_3 [0]>590 && Tria_3 [0]<610  && Tria_3 [1]>240 && Tria_3 [1]<260  &&
+        Tria_4 [0]>490 && Tria_4 [0]<514  && ((Tria_4 [1]>450 && Tria_4 [1]<470)  || (Tria_4 [1]>136 && Tria_4 [1]<156) ) &&
+        Tria_5 [0]>490 && Tria_5 [0]<514  && ((Tria_5 [1]>450 && Tria_5 [1]<470)  || (Tria_5 [1]>136 && Tria_5 [1]<156) ) &&
+        Cuad [0]>590 && Cuad [0]<752  && Cuad [1]>227 && Cuad [1]<369  &&
+        Trap [0]>490 && Trap [0]<514 && Trap [1]>445 && Trap [1]<465 && Trap [3]==-1  &&
+        seleccionado == 0 && TipoDeFig == 2){
+          fill(140,100,80);
+          rect(400,550,283,70,8);
+          fill(200);
+          text("Has completado la figura 'Pez'", 412, 585);
+    }
+    
+    if( Tria_1 [0]>490 && Tria_1 [0]<510  && ((Tria_1 [1]>290 && Tria_1 [1]<310) || (Tria_1 [1]>490 && Tria_1 [1]<510))  && 
+        Tria_2 [0]>490 && Tria_2 [0]<510  && ((Tria_2 [1]>290 && Tria_2 [1]<310) || (Tria_2 [1]>490 && Tria_2 [1]<510))  && 
+        Tria_3 [0]>387 && Tria_3 [0]<407  && Tria_3 [1]>392 && Tria_3 [1]<412  &&
+        ((Tria_4 [0]>314 && Tria_4 [0]<334)  || (Tria_4 [0]>692 && Tria_4 [0]<712) )  && ((Tria_4 [1]>461 && Tria_4 [1]<481)  || (Tria_4 [1]>344 && Tria_4 [1]<364) ) &&
+        ((Tria_5 [0]>314 && Tria_5 [0]<334)  || (Tria_5 [0]>692 && Tria_5 [0]<712) )  && ((Tria_5 [1]>461 && Tria_5 [1]<481)  || (Tria_5 [1]>344 && Tria_5 [1]<364) ) &&
+        Cuad [0]>625 && Cuad [0]<705  && Cuad [1]>205 && Cuad [1]<355  &&
+        Trap [0]>690 && Trap [0]<710 && Trap [1]>485 && Trap [1]<505 && Trap [3]==-1  &&
+        seleccionado == 0 && TipoDeFig == 3){
+          fill(140,100,80);
+          rect(400,550,283,75,8);
+          fill(200);
+          text("Has completado la figura 'Pato'", 412, 585);
     }
     
 }
@@ -181,7 +261,7 @@ void mouseClicked() {
   if (seleccionado==0 && obj_sel != W) {
     seleccionado = 1;
     
-    if (obj_sel == T1) {
+        if (obj_sel == T1) {
           Seleccion = 1;
         }
         if (obj_sel == T2) {
@@ -202,16 +282,28 @@ void mouseClicked() {
         if (obj_sel == Q2) {
           Seleccion = 7;
         }
-        if (obj_sel == W) {
-          Seleccion = 0;
-        }
     
   }else{
   seleccionado = 0;
   Seleccion = 0;
   }
   
+  if(mouseX>930 && mouseX<1130 && mouseY>300 && mouseY<360){
+      TipoDeFig = 1;
+      posicion_inicial();
+  }
+  if(mouseX>930 && mouseX<1130 && mouseY>380 && mouseY<440){
+      TipoDeFig = 2;
+      posicion_inicial();
+  }
+  
+  if(mouseX>930 && mouseX<1130 && mouseY>460 && mouseY<520){
+      TipoDeFig = 3;
+      posicion_inicial();
+  }
+  
 }
+
 
 void mouseMoved() {
   if(seleccionado == 1){
